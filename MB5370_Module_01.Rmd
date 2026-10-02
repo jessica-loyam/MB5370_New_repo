@@ -8,12 +8,14 @@ date: "2026-10-02"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+#Workshop 4. AI####
+     #Step 1 - Preparing workplace 
 #Load tidyverse and palmerpenguins libraries
      library(tidyverse)
      library(palmerpenguins)
      install.packages("palmerpenguins")
      
-     #Step 2 - Prompt for a multi-variable scatter plot 
+  #Step 2 - Prompt for a multi-variable scatter plot 
      
      # Create a ggplot scatter plot using the penguins dataset. 
      # Plot bill_length_mm on the x-axis and bill_depth_mm on the y-axis.
@@ -28,7 +30,7 @@ knitr::opts_chunk$set(echo = TRUE)
             y = "Bill Depth (mm)",
             color = "Species")
      
-     #Step 3 - open-end comparitive plotting 
+  #Step 3 - open-end comparitive plotting 
      # build a scatter plot mapping body_mass_g against flipper_length_mm, adding a linear regression trend line (geom_smooth) for each species. 
      ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
        geom_point(size = 3) +
@@ -69,3 +71,11 @@ knitr::opts_chunk$set(echo = TRUE)
             fill = "Species")
      
      #Copilot was used to generate plots and a few descriptive text within workshop 4. 
+     
+#4.4 chattr (conversational workspace engine) 
+ # Installation 
+  #install.packages("ellmer")
+  #install.packages("chattr")
+     
+     
+            
