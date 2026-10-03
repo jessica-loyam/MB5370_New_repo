@@ -77,5 +77,144 @@ knitr::opts_chunk$set(echo = TRUE)
   #install.packages("ellmer")
   #install.packages("chattr")
      
-     
-            
+#if_else
+ 
+ # Load tidyverse (if not already loaded)
+ library(tidyverse)
+
+ # Sample coral data
+coral_monitoring <- tibble(
+  site = c("Site_A", "Site_B", "Site_C"),
+  depth_m = c(12, 35, 8)
+)
+
+ # Classify depth using if_else
+coral_monitoring <- coral_monitoring %>% 
+  mutate(zone = if_else(depth_m > 30, "Deep Reef", "Shallow Reef"))
+  
+ #mutate() is used to create a new column called zone, which classifies the depth of each site as either "Deep Reef" or "Shallow Reef" based on the condition specified in if_else().
+
+ # %>% symbol is the pipe operator from the magrittr package, which is part of the tidyverse. It allows for chaining multiple operations together in a readable manner. In this case, it takes the coral_monitoring tibble and passes it to the mutate() function to create the new zone column.
+
+ #case_when() used when you have more than two possibilities, using mutiple if_else block becomes unreadable.
+
+coral_monitoring <- coral_monitoring %>% 
+  mutate(reef_category = case_when(
+    depth_m < 10  ~ "Lagoon / Flats",
+    depth_m <= 30 ~ "Crest / Slope",
+    depth_m > 30  ~ "Mesophotic / Deep",
+    TRUE          ~ "Unclassified" # Catch-all remainder
+  ))
+
+ #Task: Using the chattr app or inline copilot, your task here is to write an R script that initialises a tibble named marine_stations containing a column for salinity with values 35, 28, 32, and 12. Use the pipe operator (%>%) and mutate() combined with case_when() to create a new column named environment_type. Classify values below 15 as "Estuarine", values between 15 and 30 as "Brackish", and values above 30 as "Marine". Run your script and verify the table structure.
+
+marine_station <- tibble(
+  salinity = c(35, 28, 32, 12)
+)
+
+marine_station <- marine_station %>%
+  mutate(environment_type = case_when(
+    salinity < 15 ~ "Estuarine",
+    salinity >= 15 & salinity <= 30 ~ "Brackish",
+    salinity > 30 ~ "Marine"
+  ))
+  
+ #base R: for-loops is a control flow statement that allows you to iterate over a sequence of values, executing a block of code for each value in the sequence. It is commonly used for repetitive tasks, such as processing elements in a vector or list.
+
+ # Classify loop anatomy 
+   for (year in 2020:2024) {
+    print (paste("Processing climate data for year:", year))
+    }
+    
+ #If we want to track real-world data, loops can iterate over file directories (e.g., reading 12 monthly turtle tracking CSVs sequentially):
+ 
+ # Loop across index sequences
+transect_lengths <- c(50, 100, 25, 75)
+
+for (i in seq_along(transect_lengths)) {
+  print(paste("Transect number", i, "measures", transect_lengths[i], "metres."))
+}
+
+# using purr
+ library(purrr)
+# Map directly and define your expected output type explicitly
+mapped_results <- map_dbl(site_areas, sqrt)
+
+ #combing purr piplines seamlessly inside dataframes to split analysis across separate groups 
+ 
+ # Iterate a summary function over split lists of data
+iris %>% 
+  split(.$Species) %>% 
+  map(~summary(.x))
+
+#4.5 Writing custom functions 
+
+# Function Definition
+calculate_coral_mortality <- function(initial_count, surviving_count) {
+  
+  # Logic safety switch using our conditional tools!
+  if (initial_count <= 0) {
+    stop("Initial count must be greater than zero.")
+  }
+  
+  mortality_rate <- (initial_count - surviving_count) / initial_count
+  return(mortality_rate)
+}
+
+# Utilizing your custom function
+calculate_coral_mortality(initial_count = 120, surviving_count = 84)
+
+#Task - student exercise 4: Custom Function Construction 
+
+Instruction:Build a custom function named convert_temp_c_to_f that accepts a single argument representing temperature in Celsius. The function should perform the math conversion: F = (C * 9/5) + 32. Include a conditional safety check using an if statement that halts execution via stop() if the entered value is below absolute zero (-273.15 degrees Celsius). Test your function with both a valid temperature and an invalid value to ensure the error handling behaves as expected.
+
+convert_temp_c_to_f <- function(temp_c) {
+  # Safety check for absolute zero
+  if (temp_c < -273.15) {
+    stop("Temperature cannot be below absolute zero (-273.15°C).")
+  }
+  
+  # Conversion formula
+  temp_f <- (temp_c * 9/5) + 32
+  return(temp_f)
+}
+
+
+Challenge 1: Nested Multi-Vector Iteration
+In real-world field surveys, calculations often depend on matching values across multiple lists or matrices. Read the documentation for purrr::map2_dbl(). Given a vector of raw survey counts counts <- c(15, 24, 8, 42) and a vector of species-specific scaling factors factors <- c(1.2, 0.8, 2.5, 1.1), write a mapping statement that iterates across both vectors simultaneously to return a single vector of scaled abundance values. Do not use a manual index loop.
+
+library(purrr)
+counts <- c(15, 24, 8, 42)
+factors <- c(1.2, 0.8, 2.5,1.1)
+
+scaled_abundance <- map2_dbl(counts, factors, ~ .x * .y)
+
+Challenge 2: The Robust Data Wrangling Pipeline Function
+
+Create a custom function named clean_and_classify_survey that handles complex data frame structures. The function must fulfill these criteria:
+
+1) Accept a data frame and a column name threshold parameter as inputs.
+2) Safely check if the specified column name exists within the passed data frame; if it does not, trigger a user-friendly error message using stop().
+3) Filter out rows containing missing values (NA) within that specific column.
+4) Use the pipe operator and mutate() along with a vectorised conditional (if_else() or case_when()) to append a status string variable classification based on your threshold parameter.
+5) Return the cleaned, altered data frame to the global environment.
+
+Test your custom pipeline using a mock tibble that contains at least one missing value to confirm your code handles anomalies without crashing.
+
+clean_and_classify_survey <- function(data, column_name, threshold) {
+  # Check if the specified column exists
+  if (!column_name %in% colnames(data)) {
+    stop(paste("Column", column_name, "does not exist in the data frame."))
+  }
+  
+  # Filter out rows with NA in the specified column and classify based on threshold
+  cleaned_data <- data %>%
+    filter(!is.na(.data[[column_name]])) %>%
+    mutate(classification = case_when(
+      .data[[column_name]] < threshold ~ "Below Threshold",
+      .data[[column_name]] >= threshold ~ "Above Threshold"
+    ))
+  
+  return(cleaned_data)
+}
+
