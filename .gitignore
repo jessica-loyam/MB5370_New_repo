@@ -29,3 +29,6 @@ test/
 
 # Keywords to ignore
 *archive
+
+# Allow Quarto figures for the Module_1 ePortfolio
+!docs/MB5370_Module_01_files/figure-html/*.png
