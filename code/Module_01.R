@@ -272,14 +272,15 @@ str(bleaching_present)
      # take note of spacing
      # everything to alter the aesthetic must be in the aesthetic brackets 
     
-  #----------------------------------------------#
+
     #Troubleshooting 
     ggplot(data = mpg) + 
       geom_point(mapping = aes(x = displ, y = hwy))
     # the + should be on top line
     
- #-----------------------------------------------#
+    
     #Facet and panel plots 
+    
    # To facet your plot using a single variable, use facet_wrap().
     # Facet wrap syntax is in the function of a formula (kind of like a linear model formula), where the ~ dictates which variable you want to subset your data with.
     # Note: only use facet_wrap() for discrete variables.
@@ -310,17 +311,6 @@ str(bleaching_present)
     # To display the same data as a smooth line fit through the points use geom_smooth().
     ggplot(data = mpg) +
       geom_smooth(mapping = aes(x = displ, y = hwy)) # note that the geom_point() is not included to include the points 
-    
-    # recap
-    # geom is an object that your plot uses to represent the data.
-    # To change the geom type in your plot, simply change the geom function that you add to your plot template
-    
-    ggplot(data = mpg) +
-      geom_point(mapping = aes(x = displ, y = hwy)) 
-      # points horrible
-     
-      ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy)) 
-      # try smooth line 
       
     # Combining points and lines 
       ggplot(data = mpg) +
@@ -359,10 +349,10 @@ str(bleaching_present)
        geom_smooth(mapping = aes(x = displ, y = hwy))
      
      # however the mappings are duplicated, want to make it more efficient 
-     
-     ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-       geom_point() +
-       geom_smooth()
+     # Short version of the strings above 
+     #ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+      # geom_point() +
+       #geom_smooth()
      
      #changing colors 
      
@@ -380,31 +370,27 @@ str(bleaching_present)
    #question####  
      #own note:the line changes to following the class?
      
-     ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-       geom_point(mapping = aes(color = class)) +
-       geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
      #1. What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
-     geom_line()
-     geom_area()
-     geom_boxplot()
-     geom_histogram()
+     #Answer: geom_line()
+
      
      #2. Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions. Will these two graphs look different? Why/why not? 
      #my predictions:both graphs would look the same 
-     ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-       geom_point() +
-       geom_smooth()
+     #ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+      #geom_point() +
+       #geom_smooth()
      
      
      ggplot() +
        geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
        geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
-  #--------------------------------------------------------------#   
-  #2.22 Transforming and stats####
+ 
+     
+##2.22 Transforming and stats####
      
      #The diamonds dataset comes in ggplot2 and contains information about ~54,000 diamonds, including the price, carat, color, clarity, and cut of each diamond.
      
-     #2.22.1 Ploting statistics####
+###2.22.1 Ploting statistics####
      
     # Our first bar chart shows that more diamonds are available with high quality cuts than low quality cuts. The quality of the shape the diamond has been cut literally!
      
@@ -424,12 +410,12 @@ str(bleaching_present)
      #You can generally use geoms and stats interchangeably. For example, you can recreate the
      #previous plot using stat_count() instead of geom_bar()
      
-     ggplot(data = diamonds) +
-       stat_count(mapping = aes(x = cut))
+     #ggplot(data = diamonds) +
+       #stat_count(mapping = aes(x = cut))
      
      #The main reason this is so easy is because every geom has a default stat and every stat has a default geom, which means you don’t need to worry about what’s going on.
      
-     #2.22.2 Overview defaults in ggplot2####
+####2.22.2 Overview defaults in ggplot2####
       
      # The defaults stat are not the only thing you can do. 
      #defaults are there in the first place can have bug implications on results, so you should alwasy make an effort to understand any of these black box outputs.
@@ -467,7 +453,7 @@ str(bleaching_present)
      #> Warning: `stat(prop)` was deprecated in ggplot2 3.4.0.
      #Displying according to total than count which is the default stat
      
-     #2.22.3 Plotting statistical details#### 
+###2.22.3 Plotting statistical details#### 
      
      # showing more about these transformations
      ggplot(data = diamonds) +
@@ -478,7 +464,7 @@ str(bleaching_present)
        fun = median
      )
      
-     #2.23 Aesthetic adjustments####
+##2.23 Aesthetic adjustments####
      
      #Another way to boost the way you can convey information with plots using ggplot2 is to use aesthetics like colour or fill to change aspects of bar colours.
  
@@ -530,7 +516,7 @@ str(bleaching_present)
      
 #--------------------------------------------------#     
     
-      #2.24 The layered grammer of graphics#### 
+##2.24 The layered grammer of graphics#### 
       
     #Most of the time you won’t need to populate all of these, because ggplot2 has defaults for most of them, but overall you have enough here to build almost any plot
      
@@ -551,7 +537,7 @@ str(bleaching_present)
      #usethis::git_sitrep() # like a check
      
      #--------------------------------------------------#
-     #Workshop 4. AI####
+#Workshop 4. AI####
      #Step 1 - Preparing workplace 
      
      #Load tidyverse and palmerpenguins libraries
@@ -599,17 +585,6 @@ str(bleaching_present)
      # The boxplot was choisen to compare the distribution of flipper lengths across species, while faceting by island allows for a clear comparison of how these distributions vary across different geographic locations. 
      # The custom color palette enhances visual distinction between species. 
      # While compared to the scatter plot option, information displayed where less clearly visualized compared to the boxplot.
-     
-     ggplot(data = penguins, mapping = aes(x = species, y = flipper_length_mm, fill = species)) +
-       geom_boxplot() +
-       facet_wrap(~ island) +
-       scale_fill_brewer(palette = "Set2") +
-       theme_minimal() +
-       labs(title = "Flipper Length by Species and Island",
-            x = "Species",
-            y = "Flipper Length (mm)",
-            fill = "Species")
-     
      #Copilot was used to generate plots and a few descriptive text within workshop 4. 
      
      

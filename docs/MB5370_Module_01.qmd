@@ -1,15 +1,30 @@
 ---
-title: "MB5370_Module_01"
+title: "MB5370 Module 01"
+subtitle: "Programming Fundamentals"
 author: "Jessica Loyam"
 format: html
 editor: visual
 ---
+## Introduction 
+This module introduced fundamental programming skills using R and RStudio, focusing on data structures, data manipulation, and scientific visualisation.
+
+Through practical exercises, I developed experience working with different data types, creating data frames, and producing graphical representations of marine science datasets using ggplot2.
+
+The module also introduced version control using Git and GitHub, reproducible reporting with Quarto, and the use of AI-assisted programming tools.
 
 ```{r}
 #| message: false
 #| warning: false
 
-# Execute workshop 1 R script
-source("../code/Module_01.R") # change the filepath/name if required 
+## Workshop Exercises: R Programming and Visualisation
+source("../code/Module_01.R", print.eval = TRUE)# change the filepath/name if required 
 ```
- 
+## Learning Reflection
+
+Through this module, I developed a stronger understanding of fundamental programming concepts in R, including data types, data frames, and basic data manipulation.
+
+I also gained practical experience using ggplot2 to visualise scientific datasets and Quarto to create reproducible reports. These skills are relevant to marine science because they support the organisation, analysis, and communication of ecological data.
+
+One important lesson was understanding how R scripts can be integrated into Quarto documents, allowing analyses and visualisations to be reproduced efficiently.
+
+Moving forward, I aim to improve my confidence in writing R code independently, troubleshooting errors, and developing more advanced data visualisations for marine research.
