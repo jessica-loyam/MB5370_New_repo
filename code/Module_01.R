@@ -1,66 +1,91 @@
+#Programming Fundamentals_Workshop 1####
+
+
 # Basic arithmetic (e.g. wrangling sea surface temperatures)
+
 24.5 + 1.2
 32.0 / 4
+
+
 #----------------------------#
  # MB5370: Techniques in Marine Science 1
  # Programming Fundamentals 
  # < Jessica > 
  # < 15/09/26 > 
-
 #----------------------------#
-# Workshop 01. Introduction ####
 
-# R syntax and working in scripts ####
+#Workshop 01. Introduction ####
+
+## 1.4 R syntax and working in scripts ####
+
 # This section introduces us to R by running simple calculations inside a script.
+# Indexed outputs: 
 
 2 + 1 
-## Result 
-3
 
- #---------------------------#
+1:30
+
+6 * + 2
+
+# 6 % 2 
+
+
+#---------------------------
 #Functions and Arguments 
+
 years_old <- 25.3
 round(years_old) # rounds up
 floor(years_old) # rounds down 
 
+
 years_old <- 25.365 #Adding decimal digits for the propt below 
  round (years_old, 2) # comma after the object to specify argument (rounding to 2 decimal points)
 
+ 
  args(round) # query function arguments to discover the options for each function 
 #?round, ? can also be used to go help
+
  
  args(round) # use args in the Console
 #function (x, digits = 0)
-   
+
+
 #-----------------------------#
-# Objects and the assignment operator 
+# Objects and the assignment operator## 
 ## this section focuses on understanding how data is stored in r and why that matters.
- 
+
+
  # Saving a single value 
    coral_count <- 42
  # Saving a vector of multiple fish lengths (in mm)
    fish_lengths <- c(124, 152, 98, 221, 146)
 
+   
    # Manipulating objects 
     coral_count + 1 # adding value 
     coral_count + coral_count
   
     Coral_Count <- 1 
     coral_count + Coral_Count
+
+
+# Object naming rules
+
     
-# Object naming rules 
-    #01_age <- 25 # starts with a number
+# 1_age <- 25 # starts with a number
     #Error: unexpected input in "01_"
     
-    #> !_age <- 25 # no special symbols
+# !_age <- 25 # no special symbols
     # Error: unexpected input in "!_"
     
-   # > coral count <- 25 # no spaces
+  coral_count <- 25 # no spaces
    # Error: unexpected symbol in "coral count"
-    
+
     #> `coral count` <- 25 # spaces used but with back ticks
     
+
 # debugging code 
+
     # Field survey data
     quadrat_area_m2 <- 0.25
     number_of_quadrats <- 16
@@ -68,77 +93,99 @@ years_old <- 25.365 #Adding decimal digits for the propt below
     
     # Let's print out the result
     print(total_area_surveyed)
+
   ## Result 
-    4 
+    4
+
 #-----------------------------------------#
-# Packages 
-    #Installing and loading tidyverse 
-    #install.packages("tidyverse") # download and install
-    library(tidyverse) # load into current session
+## 1.5 Packages#### 
+
+#Installing and loading tidyverse 
+#install.packages("tidyverse") # download and install
+library(tidyverse) # load into current session
+
 
 #----------------------------------------#
-    # Data types 
+
+## 1.6 Data types ####
     # Assign variable values
-    ## Exercise checking structures 
-    site_name <- "Heron_Island"
-    transect_depth_m <- 12.5
-    bleaching_present <- TRUE
+    ## Exercise checking structures
+
+site_name <- "Heron_Island"
+transect_depth_m <- 12.5
+bleaching_present <- TRUE
     
-    # Check using function class()
-    class(site_name)
-    class(transect_depth_m)
-    class(bleaching_present)
+# Check using function class()
+class(site_name)
+class(transect_depth_m)
+class(bleaching_present)
     
-    # Check using function str()
-    str(site_name)
-    str(transect_depth_m)
-    str(bleaching_present)
-   
-    ## Exercise rounding numbers 
-    # Tracking the age of an old-growth Porites coral colony
+# Check using function str()
+str(site_name)
+str(transect_depth_m)
+str(bleaching_present)
+
+
+## Exercise rounding numbers 
+
+# Tracking the age of an old-growth Porites coral colony
     years_old <- 25.765
-    
-    # Clean this up for our summary report
+
+# Clean this up for our summary report
     round(years_old, 2)
-    # Result 
+
+    
+# Result 
     25.76
     
-    # Manipulating outpiuts 
-    # Make variables
+# Manipulating outpiuts 
+# Make variables
     years_old <- 25.765
     rounded_age <- round(years_old, 2)
+
     
-    # Combine text and data variables
+# Combine text and data variables
     paste("Average colony age is", rounded_age, "years old")
-     # we want to change result ti]o 1 decimal place as show below
+# we want to change result ti]o 1 decimal place as show below
     years_old <- 25.765
     rounded_age <- round(years_old, 1)
-   # Result 25.8
-    
+# Result 25.8
+
+
 #----------------------------------------#
-    # Data Structures 
-    # Making a vector full of characters 
+## 1.7 Data Structures ####
+# Making a vector full of characters 
+
     coral_spp <- c("Porites", "Acropora", "Montastrea")
-   
-     ## Vectors 
+
+# Vectors 
+
     class(fish_lengths) # Numeric
     class(coral_spp) # Character 
-    ### vectors with mixed variables 
+
+# vectors with mixed variables 
+
     notes <- c("Acropora", 27.5, TRUE)
+
+ # Lists 
+
     notes[[1]] # ACropora 
     notes[[2]] # 27.5
-    
+   
+
 # Data frames and tibbles 
+
     my_dataframe <- data.frame (no = c(1,2,3), c("Plectropomus", "Scarus", "Pomacentrus"), c("TRUE", "FALSE", "TRUE"))
     my_dataframe
     str (my_dataframe)
-  
+
     # Sometimes it gets it wrong, so get into the habit of checking and changing it if necessary. You can do this by accessing the column and changing its type:
 
     my_dataframe$no = as.factor(my_dataframe$no)
     str (my_dataframe)
-    
-# R projects and workspace architecture 
+  
+#-----------------------------------------------#   
+## 1.8 R projects and workspace architecture ####
   ## The working directory and saving your work 
     ### R projects: Escaping setwd()hell
     # not going to use setwd(), now using R Projects (.Rproj)
@@ -146,8 +193,19 @@ years_old <- 25.365 #Adding decimal digits for the propt below
     
     #source("file name ") - similar function to setwd()
     #getwd() - used to locate a directory 
-#-----------------------------------------------#   
-    # Workshop 2 #
+#-----------------------------------------------#  
+#1.9 Quarto for Reporting####
+#-----------------------------------------------
+
+
+
+
+
+
+
+
+
+# Workshop 2 ####
     
 #Create first ggplot 
     ggplot(data = mpg) +
@@ -167,8 +225,8 @@ years_old <- 25.365 #Adding decimal digits for the propt below
     #ggplot(data = <DATA>) +
      # <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
     
-    ggplot() # create window without data 
-    ggplot(data = mpg)
+    #ggplot() # create window without data 
+    #ggplot(data = mpg)
     # adding a third variable such as class by mapping it into an aesthetic "aes()" includes shapes, size and color
   ## So when you’re creating a plot, you essentially need two attributes of a plot: a geom and aesthetics.
     
@@ -499,7 +557,7 @@ years_old <- 25.365 #Adding decimal digits for the propt below
      #Load tidyverse and palmerpenguins libraries
      library(tidyverse)
      library(palmerpenguins)
-     install.packages("palmerpenguins")
+     #install.packages("palmerpenguins")
      
      #Step 2 - Prompt for a multi-variable scatter plot 
      
